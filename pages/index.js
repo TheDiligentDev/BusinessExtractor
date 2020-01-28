@@ -14,10 +14,10 @@ const HomePage = () => {
 
     return (
         <React.Fragment>
-            <Box m={4}>
+            <Box>
                 <FormControl>
                     <InputLabel htmlFor="business-type">Business Type</InputLabel>
-                    <Input id="business-type" onChange={handleChange('businessName')} value={state.businessType} />
+                    <Input id="business-type" onChange={handleChange('businessType')} value={state.businessType} />
                 </FormControl>
             </Box >
         </React.Fragment>
