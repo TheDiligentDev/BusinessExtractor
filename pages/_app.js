@@ -4,14 +4,14 @@ import Box from '@material-ui/core/Box';
 
 import Header from '../components/Header';
 
-//import '../assets/style.css'
+import '../assets/style.css'
 
 const MyApp = ({ Component, pageProps }) => {
     return (
         <React.Fragment>
             <Header />
             <Container maxWidth="lg">
-                <Paper elevation={3}>
+                <Paper elevation={3} className="full-height">
                     <Box p={2} m={2}>
                         <Component {...pageProps} />
                     </Box>
