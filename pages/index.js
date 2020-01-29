@@ -13,7 +13,7 @@ import {
     TableRow,
     Typography
 } from '@material-ui/core';
-
+import { getPlacesByTypeAndZip } from '../lib/google-places';
 
 const HomePage = () => {
     const [state, setState] = useState({
@@ -26,7 +26,11 @@ const HomePage = () => {
         setState({ ...state, [name]: event.target.value })
     }
 
-    const handleSubmitClick = () => {
+    const handleSubmitClick = async () => {
+        let places = await getPlacesByTypeAndZip(state.businessType, state.zipCode)
+        if (places.length > 0) {
+            setState({ ...state, businesses: places })
+        }
     }
 
     return (
@@ -58,19 +62,34 @@ const HomePage = () => {
                         <TableHead>
                             <TableRow>
                                 <TableCell>Business Name</TableCell>
-                                <TableCell align="right">Street Address</TableCell>
-                                <TableCell align="right">City</TableCell>
-                                <TableCell align="right">State</TableCell>
-                                <TableCell align="right">Zip</TableCell>
-                                <TableCell align="right">Website</TableCell>
-                                <TableCell align="right">Phone</TableCell>
-                                <TableCell align="right">Email(s)</TableCell>
+                                <TableCell>Address</TableCell>
+                                <TableCell>Website</TableCell>
+                                <TableCell>Phone</TableCell>
+                                <TableCell>Email(s)</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {state.businesses.length > 0 ? state.businesses.map(row => { })
+                            {state.businesses.length > 0 ? state.businesses.map(row => (
+                                <TableRow key={row.name}>
+                                    <TableCell>
+                                        {row.name}
+                                    </TableCell>
+                                    <TableCell>
+                                        {row.address}
+                                    </TableCell>
+                                    <TableCell>
+                                        {row.website}
+                                    </TableCell>
+                                    <TableCell>
+                                        {row.phone}
+                                    </TableCell>
+                                    <TableCell>
+                                        {row.phone}
+                                    </TableCell>
+                                </TableRow>
+                            ))
                                 : <TableRow key="no-records">
-                                    <TableCell colSpan={8} align="center">
+                                    <TableCell colSpan={5} align="center">
                                         No Records.  Please search above!
                                     </TableCell>
                                 </TableRow>}
