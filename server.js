@@ -7,7 +7,7 @@ const port = process.env.PORT || 3000;
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
-const googleApiKey = 'AIzaSyBB70d-EM7WOXa1uC-cI-4zNCfyM9Dn4GU';
+const googleApiKey = 'YOUR_API_KEY';
 const googlePlacesBaseUrl = 'https://maps.googleapis.com/maps/api/place';
 const fields = 'name,formatted_address,formatted_phone_number,website'
 
