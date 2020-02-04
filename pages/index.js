@@ -58,14 +58,13 @@ const HomePage = () => {
             <Box pt={4}>
                 <Typography variant="h5">Business Listings</Typography>
                 <TableContainer>
-                    <Table>
+                    <Table size='small'>
                         <TableHead>
                             <TableRow>
                                 <TableCell>Business Name</TableCell>
                                 <TableCell>Address</TableCell>
                                 <TableCell>Website</TableCell>
                                 <TableCell>Phone</TableCell>
-                                <TableCell>Email(s)</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -78,10 +77,7 @@ const HomePage = () => {
                                         {row.address}
                                     </TableCell>
                                     <TableCell>
-                                        {row.website}
-                                    </TableCell>
-                                    <TableCell>
-                                        {row.phone}
+                                        <a href={row.website}>{row.website}</a>
                                     </TableCell>
                                     <TableCell>
                                         {row.phone}

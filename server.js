@@ -7,7 +7,7 @@ const port = process.env.PORT || 3000;
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
-const googleApiKey = 'AIzaSyBB70d-EM7WOXa1uC-cI-4zNCfyM9Dn4GU';
+const googleApiKey = 'YOUR_GOOGLE_PLACES_API_KEY';
 const googlePlacesBaseUrl = 'https://maps.googleapis.com/maps/api/place';
 const fields = 'name,formatted_address,formatted_phone_number,website'
 
@@ -17,6 +17,7 @@ app.prepare().then(() => {
     //middleware to get json body on post methods
     server.use(express.json());
 
+    // Our api call to google places
     server.post('/api/getGoogleBusinessDetails', async (req, res) => {
         const searchTerm = encodeURI(req.body.searchTerm);
 
@@ -26,23 +27,23 @@ app.prepare().then(() => {
         const { status, results } = data;
 
         //Drill down further to get more information
-        let arrPromises = [];
+        let arrPlacePromises = [];
         if (status == "OK") {
             results.forEach((r) => {
-                arrPromises.push(axios.get(`${googlePlacesBaseUrl}/details/json?place_id=${r.place_id}&fields=${fields}&key=${googleApiKey}`));
+                arrPlacePromises.push(axios.get(`${googlePlacesBaseUrl}/details/json?place_id=${r.place_id}&fields=${fields}&key=${googleApiKey}`));
             })
 
-            let arrPromiseResults = await Promise.all(arrPromises);
+            let arrPromiseResults = await Promise.all(arrPlacePromises);
 
             let placesDetails = [];
             arrPromiseResults.forEach(pr => {
                 let data = pr.data.result;
+
                 placesDetails.push({ name: data.name, address: data.formatted_address, phone: data.formatted_phone_number, website: data.website });
             })
 
             res.json(placesDetails);
         }
-
     })
 
     //defualt catch all for next.js
