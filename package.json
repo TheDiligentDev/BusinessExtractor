@@ -13,7 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@material-ui/core": "^4.9.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "express": "^4.17.1",
     "google-places-web": "^1.0.1",
     "next": "^9.2.1",
